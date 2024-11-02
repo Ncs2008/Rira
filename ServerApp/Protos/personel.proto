@@ -1,0 +1,40 @@
+syntax = "proto3";
+
+option csharp_namespace = "ServerApp.Protos";
+import "google/protobuf/timestamp.proto";
+
+service PersonelService {
+	rpc GetPersonelList (Empty) returns (Personels);
+	rpc GetPersonel  (GetPersonelDetailRequest) returns (PersonelDetail);
+	rpc CreatePersonel  (CreatePersonelDetailRequest) returns (PersonelDetail);
+	rpc UpdatePersonel  (UpdatePersonelDetailRequest) returns (PersonelDetail);
+	rpc DeletePersonel (DeletePersonelDetailRequest) returns (DeletePersonelDetailResponse);
+}
+message GetPersonelDetailRequest {
+	int32 PersonelId = 1;
+}
+
+message PersonelDetail {
+	int32 id = 1;
+	string FirstName = 2;
+	string LastName = 3;
+	string NationalCode=4;
+	google.protobuf.Timestamp Birthday=5;
+}
+message CreatePersonelDetailRequest {
+	PersonelDetail personel = 1;
+}
+message UpdatePersonelDetailRequest {
+	PersonelDetail personel = 1;
+}
+message DeletePersonelDetailRequest {
+	int32 personelId = 1;
+}
+message DeletePersonelDetailResponse {
+	bool isDelete = 1;
+}
+message Empty{
+}
+message Personels {
+  repeated PersonelDetail items = 1;
+}
